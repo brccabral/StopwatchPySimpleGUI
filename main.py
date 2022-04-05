@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import time
 
 sg.theme("black")
 layout = [
@@ -33,9 +34,18 @@ window = sg.Window(
     location=(100, 100),
 )
 
+start_time = 0
 while True:
     event, values = window.read()
     if event in (sg.WIN_CLOSED, "-CLOSE-"):
         break
+
+    if event == "-STARTSTOP-":
+        start_time = time.time()
+        active = True
+
+    if active:
+        elapsed_time = round(time.time() - start_time, 1)
+        window["-TIME-"].update(elapsed_time)
 
 window.close()
