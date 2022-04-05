@@ -7,7 +7,7 @@ def create_window():
     layout = [
         [sg.Push(), sg.Image("cross.png", pad=0, enable_events=True, key="-CLOSE-")],
         [sg.VPush()],
-        [sg.Text("time", key="-TIME-", font="Young 50")],
+        [sg.Text("0.0", key="-TIME-", font="Young 50")],
         [
             sg.Button(
                 "Start",
@@ -43,6 +43,7 @@ window = create_window()
 
 start_time = 0
 active = False
+lap_number = 1
 while True:
     # without timeout read() blokcs the code until an event happens
     event, values = window.read(timeout=10)
@@ -61,6 +62,7 @@ while True:
                 window.close()
                 window = create_window()
                 start_time = 0
+                lap_number = 1
             else:
                 # from start to active
                 start_time = time.time()
@@ -73,7 +75,9 @@ while True:
         window["-TIME-"].update(elapsed_time)
 
     if event == "-LAP-":
-        layout = [[sg.Text("test")]]
+        elapsed_time = round(time.time() - start_time, 1)
+        layout = [[sg.Text(f"{lap_number} | {elapsed_time}")]]
         window.extend_layout(window["-LAPS-"], layout)
+        lap_number += 1
 
 window.close()
