@@ -35,8 +35,10 @@ window = sg.Window(
 )
 
 start_time = 0
+active = False
 while True:
-    event, values = window.read()
+    # without timeout read() blokcs the code until an event happens
+    event, values = window.read(timeout=10)
     if event in (sg.WIN_CLOSED, "-CLOSE-"):
         break
 
