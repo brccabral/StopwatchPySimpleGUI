@@ -20,6 +20,7 @@ layout = [
             expand_x=False,
             button_color=("#FFFFFF", "#FF0000"),
             border_width=0,
+            visible=False,
         ),
     ],
     [sg.VPush()],
@@ -43,8 +44,17 @@ while True:
         break
 
     if event == "-STARTSTOP-":
-        start_time = time.time()
-        active = True
+        if active:
+            # from active to stop
+            active = False
+            window["-STARTSTOP-"].update("Reset")
+            window["-LAP-"].update(visible=False)
+        else:
+            # from start to active
+            start_time = time.time()
+            active = True
+            window["-STARTSTOP-"].update("Stop")
+            window["-LAP-"].update(visible=True)
 
     if active:
         elapsed_time = round(time.time() - start_time, 1)
