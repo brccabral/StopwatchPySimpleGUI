@@ -25,6 +25,7 @@ def create_window():
                 visible=False,
             ),
         ],
+        [sg.Column([[]], key="-LAPS-")],
         [sg.VPush()],
     ]
 
@@ -70,5 +71,9 @@ while True:
     if active:
         elapsed_time = round(time.time() - start_time, 1)
         window["-TIME-"].update(elapsed_time)
+
+    if event == "-LAP-":
+        layout = [[sg.Text("test")]]
+        window.extend_layout(window["-LAPS-"], layout)
 
 window.close()
