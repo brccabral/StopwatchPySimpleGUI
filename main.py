@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 
 sg.theme("black")
 layout = [
-    [sg.Push(), sg.Image("cross.png", pad=0)],
+    [sg.Push(), sg.Image("cross.png", pad=0, enable_events=True, key="-CLOSE-")],
     [sg.VPush()],
     [sg.Text("time", key="-TEXT-")],
     [
@@ -23,7 +23,7 @@ window = sg.Window(
 
 while True:
     event, values = window.read()
-    if event in (sg.WIN_CLOSED, "-BUTTON1-"):
+    if event in (sg.WIN_CLOSED, "-CLOSE-"):
         break
 
 window.close()
